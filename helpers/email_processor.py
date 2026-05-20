@@ -1,5 +1,3 @@
-
-from enum import Enum, auto
 from bs4 import BeautifulSoup # html parser
 from nltk.stem.snowball import SnowballStemmer # word stemmer
 from sklearn.base import BaseEstimator, TransformerMixin

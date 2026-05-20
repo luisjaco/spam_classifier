@@ -1,0 +1,16 @@
+column         | dtype  | desciption
+---------------|--------|---------------------------------------------------
+filename       | str    | filename of the given file
+from           | str    | domain of email sender
+to             | str    | domain of email recipient
+return_path    | str    | domain of the return email
+message_id     | str    | domain of the 'Message-Id' header
+recieved       | int    | number of entries in the 'Recieved' header
+deliver_to     | int    | number of entries in the 'Deliver-To' header
+weekday        | str    | day of week 
+day            | str    | DD
+month          | str    | MMM
+year           | int    | YYYY
+timezone       | str    | timezone of datetime
+subject        | object | array of words within the subject
+body           | object | array of words within the body
