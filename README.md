@@ -19,7 +19,7 @@ pipeline.
 > Data was gathered from the **Apache SpamAssassin** Public Mail Corpus directory. You can find the
 directory [here](https://spamassassin.apache.org/old/publiccorpus/).
 
-## Extract, transform, load
+## Extract, Transform, Load
 Before starting, we unpacked the email files using the [extract.py](/helpers/extract.py) helper 
 script. Our files consist of *spam* and *ham* (ham being a real email). Some *ham* is labeled as
 *hard ham*, meaning there is HTML or oddities within the email present.
@@ -110,6 +110,56 @@ attributes, we made the following conclusions on which features to retain for pr
 | timezone | str | Timezone of datetime, in UTC offset format | ❌ | Selection bias |
 | subject | object | Array of words within the subject, stemmed | ✅ | |
 | body | object | Array of words within the body, stemmed | ✅ | |
+
+## Feature Selection & Preprocessing
+Once a set of informative features had been determined, we can begin preprocessing and feature 
+engineering to achieve a performative model. After preprocessing the selected features, we are left
+with the following processed features, ready for training:
+
+| Name | Null Response | Transformation | Notes |
+|---|---|---|---|
+| received | 0 | Standardization | - |
+| delivered_to | 0 | Standardization | - |
+| path_length | - | Standardization | Derived from the equation: *path_length = received + delivered_to* |
+| day_sin | - | Cyclical Encoding | Derived from *day* |
+| day_cos | - | Cyclical Encoding | Derived from *day* |
+| hour_sin | - | Cyclical Encoding | Derived from *hour* |
+| hour_cos | - | Cyclical Encoding | Derived from *hour* |
+| weekday_sin | Most frequent | Cyclical Encoding | Derived from *weekday* |
+| weekday_cos | Most frequent | Cyclical Encoding | Derived from *weekday* |
+| body features | - | TF-IDF Vectorization | Turned into a *sparse matrix* |
+| subject features | - | TF-IDF Vectorization | Turned into a *sparse matrix* |
+
+Numerical features were imputed with zero values. Features like **day** and **hour** were encoded 
+cyclically to ensure that the cyclical nature of days and hours are accounted for *(the hour 00:00 
+is equally as close to the hour 23:00 as 01:00)*. 
+
+<p align="center">
+  <img src="/resources/img/cyclical_encoding.png" width="80%">
+  <br>
+  <em>Cyclically encoded variables visualization.</em>
+</p>
+
+For **body** and **subject**, using `TfidfVectorizer` from `sklearn`, we are able to turn these 
+features into sparse matrices. These sparse matrices expand our total number of features, giving 
+new features for each of the most common words found during training. Each feature contains a 
+normalized value, indicating the frequency of the word within an email.
+
+```python
+-------- example row --------
+NUMBER    0.266248
+URL       0.325673
+a         0.065723
+about     0.000000
+ad        0.000000
+            ...   
+would     0.327969
+wrote     0.071305
+year      0.000000
+you       0.000000
+your      0.000000
+```
+
 
 ### License
 [MIT](https://choosealicense.com/licenses/mit/)
