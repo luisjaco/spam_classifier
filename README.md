@@ -12,10 +12,10 @@ directory [here](https://spamassassin.apache.org/old/publiccorpus/).
 
 ## Overview
 This repository features multiple notebooks, separating our workflow into a set of steps:
-1. **Extract, transform, load**; [data_cleaning.ipynb](data_cleaning.ipynb)
-2. **Exploratory data analysis**; [exploratory_data_analysis.ipynb](exploratory_data_analysis.ipynb)
-3. **Feature selection & preprocessing**; [preprocessing.ipynb](preprocessing.ipynb)
-4. **Model selection & optimization**; [model.ipynb](model.ipynb)
+1. **Extract, transform, load**; [data_cleaning.ipynb](data_cleaning.ipynb).
+2. **Exploratory data analysis**; [exploratory_data_analysis.ipynb](exploratory_data_analysis.ipynb).
+3. **Feature selection & preprocessing**; [preprocessing.ipynb](preprocessing.ipynb).
+4. **Model selection & optimization**; [model.ipynb](model.ipynb).
 
 These four notebooks take an email from a raw `.txt` file to a classification in a simple end-to-end
 pipeline. After all steps are taken, we result in a **Random Forest Classifier**, achieving an 
@@ -202,7 +202,7 @@ of **~.96**. The optimized model results with the following metric scores as wel
 <p align="center">
   <img src="/resources/img/roc_auc.png" width="60%">
   <br>
-  <em>Random Forest Classifier ROC Curve.</em>
+  <em>Random Forest Classifier ROC curve.</em>
 </p>
 
 ## Conclusion
